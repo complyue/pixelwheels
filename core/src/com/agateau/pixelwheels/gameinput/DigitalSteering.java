@@ -27,7 +27,9 @@ public class DigitalSteering {
 
   public float steer(boolean left, boolean right) {
     if (left && right) {
-      // keep original direction, in cases like pressing both btn to reverse
+      // full steer in original direction,
+      // assuming player intended to reverse at that direction
+      rawDirection = Math.signum(rawDirection);
     } else if (left) {
       rawDirection += GamePlay.instance.steeringStep;
     } else if (right) {
