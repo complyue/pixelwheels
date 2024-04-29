@@ -62,10 +62,7 @@ public class PieTouchInputHandler implements GameInputHandler {
     public GameInput getGameInput() {
         mInput.braking = mBrakeButton.isPressed();
         mInput.accelerating = !mInput.braking;
-        mInput.direction = mSteer.steer(
-            mLeftButton.isPressed(),
-            mRightButton.isPressed()
-        );
+        mInput.direction = mSteer.steer(mLeftButton.isPressed(), mRightButton.isPressed());
         mInput.triggeringBonus = mBonusButton.isPressed();
         return mInput;
     }

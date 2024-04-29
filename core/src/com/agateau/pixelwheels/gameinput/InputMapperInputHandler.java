@@ -41,10 +41,10 @@ public abstract class InputMapperInputHandler implements GameInputHandler {
                 mInputMapper.isKeyPressed(VirtualKey.DOWN)
                         || mInputMapper.isKeyPressed(VirtualKey.BACK);
         mInput.accelerating = !mInput.braking;
-        mInput.direction = mSteer.steer(
-            mInputMapper.isKeyPressed(VirtualKey.LEFT),
-            mInputMapper.isKeyPressed(VirtualKey.RIGHT)
-        );
+        mInput.direction =
+                mSteer.steer(
+                        mInputMapper.isKeyPressed(VirtualKey.LEFT),
+                        mInputMapper.isKeyPressed(VirtualKey.RIGHT));
         mInput.triggeringBonus = mInputMapper.isKeyPressed(VirtualKey.TRIGGER);
 
         return mInput;

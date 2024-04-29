@@ -62,10 +62,7 @@ public class SidesTouchInputHandler implements GameInputHandler {
     public GameInput getGameInput() {
         mInput.braking = isBraking();
         mInput.accelerating = !mInput.braking;
-        mInput.direction = mSteer.steer(
-            mLeftButton.isPressed(),
-            mRightButton.isPressed()
-        );
+        mInput.direction = mSteer.steer(mLeftButton.isPressed(), mRightButton.isPressed());
         mInput.triggeringBonus = mBonusButton.isPressed();
         return mInput;
     }
