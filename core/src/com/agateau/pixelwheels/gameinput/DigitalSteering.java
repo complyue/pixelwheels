@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Aurélien Gâteau <mail@agateau.com>
+ * Copyright 2024 Compl Yue
  *
  * This file is part of Pixel Wheels.
  *
@@ -23,23 +23,43 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class DigitalSteering {
 
-  private float rawDirection = 0;
+    private float mRawDirection = 0;
 
-  public float steer(boolean left, boolean right) {
-    if (left && right) {
-      // full steer in original direction,
-      // assuming player intended to reverse at that direction
-      rawDirection = Math.signum(rawDirection);
-    } else if (left) {
-      rawDirection += GamePlay.instance.steeringStep;
-    } else if (right) {
-      rawDirection -= GamePlay.instance.steeringStep;
-    } else {
-      rawDirection *= 0.4;
+    public float direction() {
+        // use parabolic curve to smooth the ctrl
+        return mRawDirection * mRawDirection * Math.signum(mRawDirection);
     }
-    rawDirection = MathUtils.clamp(rawDirection, -1, 1);
-    // use parabolic curve to smooth the ctrl
-    return rawDirection * rawDirection * Math.signum(rawDirection);
-  }
 
+    public float steer(boolean left, boolean right) {
+        if (left && right) {
+            // both left and right, full steer in original direction.
+            // currently there are 2 folds to do it this way:
+            //
+            // * with two-sides button control, I seldom purposfully do a
+            // straight braking/slow-down, almost always meant to reverse at
+            // a direction, then I always press the other button too quickly
+            // after pressed the 1st button, making it reverse almost
+            // straightly, the treatment here meant to make that op easy.
+            // also there are times I'd mean slow-down & turn-hard, this case
+            // works pretty well like a trick - just release the other button
+            // after the speed is sufficiently slowed down, and keep holding
+            // the 1st button to keep hard turning toward the original direction
+            // using full steering during the whole course.
+            //
+            // * for kbd control (maybe also pie-touch), this happens to enable
+            // a hard-turning trick - the player first press the button for the
+            // target direction, immediately followed by a press on the other
+            // button, it'll skip the gradually increasing steering output, and
+            // do an instant, full steering.
+            mRawDirection = Math.signum(mRawDirection);
+        } else if (left) {
+            mRawDirection += GamePlay.instance.steeringStep;
+        } else if (right) {
+            mRawDirection -= GamePlay.instance.steeringStep;
+        } else {
+            mRawDirection *= 0.4;
+        }
+        mRawDirection = MathUtils.clamp(mRawDirection, -1, 1);
+        return this.direction();
+    }
 }
