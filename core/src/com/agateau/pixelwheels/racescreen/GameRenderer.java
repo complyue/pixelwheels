@@ -80,6 +80,8 @@ public class GameRenderer {
         mCamera = new OrthographicCamera();
         if (GamePlay.instance.freeCamera) {
             mCameraUpdater = new FreeCameraUpdater(mWorld);
+        } else if (GamePlay.instance.headingUpCamera) {
+            mCameraUpdater = new HeadingUpCameraUpdater(mWorld, racer);
         } else {
             mCameraUpdater = new RacerCameraUpdater(mWorld, racer);
         }

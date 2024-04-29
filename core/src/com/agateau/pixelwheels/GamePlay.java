@@ -54,6 +54,7 @@ public class GamePlay {
 
     public boolean oneLapOnly = false;
     public boolean freeCamera = false;
+    public boolean headingUpCamera = true;
 
     public static final GamePlay instance = new GamePlay();
 }
