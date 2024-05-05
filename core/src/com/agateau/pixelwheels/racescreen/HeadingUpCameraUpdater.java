@@ -46,8 +46,14 @@ class HeadingUpCameraUpdater extends CameraUpdater {
         mNextCameraInfo.zoom =
                 MathUtils.lerp(MIN_ZOOM, MAX_ZOOM, vehicle.getSpeed() / MAX_ZOOM_SPEED);
         limitZoomChange(delta);
-        float viewportWidth = GamePlay.instance.viewportWidth * mNextCameraInfo.zoom;
-        float viewportHeight = viewportWidth * mScreenHeight / mScreenWidth;
+        float viewportWidth, viewportHeight;
+        if (mScreenWidth > mScreenHeight) {
+            viewportWidth = GamePlay.instance.viewportWidth * mNextCameraInfo.zoom;
+            viewportHeight = viewportWidth * mScreenHeight / mScreenWidth;
+        } else {
+            viewportHeight = GamePlay.instance.viewportWidth * mNextCameraInfo.zoom;
+            viewportWidth = viewportHeight * mScreenWidth / mScreenHeight;
+        }
         mNextCameraInfo.viewportWidth = viewportWidth;
         mNextCameraInfo.viewportHeight = viewportHeight;
 
