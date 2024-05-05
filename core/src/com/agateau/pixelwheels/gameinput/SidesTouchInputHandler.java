@@ -85,7 +85,8 @@ public class SidesTouchInputHandler implements GameInputHandler {
         root.addPositionRule(mLeftButton, Anchor.BOTTOM_LEFT, root, Anchor.BOTTOM_LEFT);
         root.addPositionRule(mRightButton, Anchor.BOTTOM_RIGHT, root, Anchor.BOTTOM_RIGHT);
 
-        root.addPositionRule(mBonusButton, Anchor.CENTER_RIGHT, root, Anchor.CENTER_RIGHT);
+        // root.addPositionRule(mBonusButton, Anchor.CENTER_RIGHT, root, Anchor.CENTER_RIGHT);
+        root.addPositionRule(mBonusButton, Anchor.BOTTOM_RIGHT, root, new Anchor(1.0f, 0.1f));
     }
 
     @Override
