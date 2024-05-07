@@ -18,7 +18,7 @@
         <activity
             android:name="com.agateau.pixelwheels.android.AndroidLauncher"
             android:label="@string/app_name"
-            android:screenOrientation="landscape"
+            android:screenOrientation="fullSensor"
             android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize"
             android:exported="true">
             <intent-filter>
